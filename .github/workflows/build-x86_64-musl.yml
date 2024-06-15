@@ -148,28 +148,6 @@ jobs:
           xbps-rindex --privkey ./private.pem --sign --signedby "hyprland-void-github-action" ~/hostdir/binpkgs
           xbps-rindex --privkey ./private.pem --sign-pkg ~/hostdir/binpkgs/*.xbps
 
-      - name: Compress Packages
-        run: |
-          cd ~/hostdir/binpkgs
-          tar -czvf hyprland.tar.gz *
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: hyprland-void
-          path: ~/hostdir/binpkgs/hyprland.tar.gz
-
-  publish:
-    name: Pack and Publish
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: hyprland-void
-          path: ~/
-
       - name: Checkout hyprland-void
         uses: actions/checkout@v4
 
@@ -182,7 +160,7 @@ jobs:
       - name: Create new repository branch
         run: |
           git switch --orphan repository-x86_64-musl
-          tar -xvf ~/hyprland.tar.gz -C ./
+          cp ~/hostdir/binpkgs/* ./
           git add .
           git commit -m "Upload latest packages to repository"
           git push origin repository-x86_64-musl
