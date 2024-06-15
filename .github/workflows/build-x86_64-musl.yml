@@ -28,7 +28,7 @@ jobs:
           - {
               arch: x86_64,
               host: x86_64,
-              libc: musl,
+              libc: glibc,
               platform: linux/amd64,
               test: 1,
             }
@@ -69,71 +69,72 @@ jobs:
           common/travis/set_mirror.sh &&
           common/travis/prepare.sh &&
           common/travis/fetch-xtools.sh
+          /hostrepo/xbps-src -A x86_64-musl binary-bootstrap
 
       - name: Build tomlplusplus
         run: |
           (
-          /hostrepo/xbps-src -j$(nproc) -s -h ~/hostdir pkg tomlplusplus
+          /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg tomlplusplus
           )
 
       - name: Build hyprlang
         run: |
           (
-          /hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprlang
+          /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg hyprlang
           )
 
       - name: Build hyprcursor
         run: |
           (
-          /hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprcursor
+          /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg hyprcursor
           )
 
       - name: Build hyprwayland-scanner
         run: |
           (
-          /hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprwayland-scanner
+          /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg hyprwayland-scanner
           )
 
       - name: Build hyprland
         run: |
           (
-          /hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprland
+          /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg hyprland
           )
 
       - name: Build sdbus-cpp
         run: |
           (
-          /hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg sdbus-cpp
+          /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg sdbus-cpp
           )
 
       - name: Build hyprland-protocols
         run: |
           (
-          /hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprland-protocols
+          /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg hyprland-protocols
           )
 
       - name: Build xdg-desktop-portal-hyprland
         run: |
           (
-          /hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg xdg-desktop-portal-hyprland
+          /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg xdg-desktop-portal-hyprland
           )
 
       - name: Build hypridle
         run: |
           (
-          /hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hypridle
+          /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg hypridle
           )
 
       - name: Build hyprlock
         run: |
           (
-          /hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprlock
+          /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg hyprlock
           )
 
       - name: Build hyprpaper
         run: |
           (
-          /hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprpaper
+          /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg hyprpaper
           )
 
       - name: Retrieve private key
