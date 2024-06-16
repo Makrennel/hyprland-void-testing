@@ -20,6 +20,8 @@ jobs:
         BOOTSTRAP: "${{ matrix.config.host }}"
         TEST: "${{ matrix.config.test }}"
         HOSTREPO: /hostrepo
+        REPO_OWNER: "${{ github.repository_owner }}"
+        REPO_NAME: "${{ github.event.repository.name }}"
 
     strategy:
       fail-fast: false
@@ -34,11 +36,6 @@ jobs:
             }
 
     steps:
-      - env: |
-        REPO_OWNER: ${{ github.repository_owner }}
-        REPO_NAME: ${{ github.event.repository.name }}
-
-
       - name: Prepare container
         run: |
           mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
