@@ -6,6 +6,10 @@ on:
       - master
   workflow_dispatch:
 
+env:
+  REPO_OWNER: "${{ github.repository_owner }}"
+  REPO_NAME: "${{ github.event.repository.name }}"
+
 jobs:
   build:
     name: Build Hyprland
@@ -35,9 +39,6 @@ jobs:
 
     steps:
       - name: Prepare container
-        env:
-          REPO_OWNER: "${{ github.repository_owner }}"
-          REPO_NAME: "${{ github.event.repository.name }}"
         run: |
           mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
           ls -la
