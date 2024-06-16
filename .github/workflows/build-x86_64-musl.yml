@@ -148,8 +148,10 @@ jobs:
           xbps-rindex --privkey ./private.pem --sign --signedby "hyprland-void-github-action" ~/hostdir/binpkgs
           xbps-rindex --privkey ./private.pem --sign-pkg ~/hostdir/binpkgs/*.xbps
 
-      - name: Checkout hyprland-void
-        uses: actions/checkout@v4
+      - name: Clone hyprland-void
+        run: |
+          git clone https://github.com/Makrennel/hyprland-void.git
+          cd hyprland-void
 
       - name: Remove old repository branch
         run: |
