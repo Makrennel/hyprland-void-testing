@@ -56,7 +56,7 @@ jobs:
 
       - name: Clone Hyprland-Void repo and prepare
         run: |
-          git clone --depth 1 https://github.com/Makrennel/hyprland-void.git
+          git clone https://github.com/Makrennel/hyprland-void.git
           cd hyprland-void
           cat common/shlibs >> ../void-packages/common/shlibs
           cp -r srcpkgs/* ../void-packages/srcpkgs
@@ -148,13 +148,9 @@ jobs:
           xbps-rindex --privkey ./private.pem --sign --signedby "hyprland-void-github-action" ~/hostdir/binpkgs
           xbps-rindex --privkey ./private.pem --sign-pkg ~/hostdir/binpkgs/*.xbps
 
-      - name: Clone hyprland-void
-        run: |
-          git clone https://github.com/Makrennel/hyprland-void.git
-          cd hyprland-void
-
       - name: Remove old repository branch
         run: |
+          cd hyprland-void
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git push origin -d repository-x86_64-musl
