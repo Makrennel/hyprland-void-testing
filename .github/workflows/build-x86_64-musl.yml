@@ -153,7 +153,7 @@ jobs:
           cd hyprland-void
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git push https://Makrennel:${{ secrets.GITHUB_TOKEN }}@github.com/Makrennel/hyprland-void.git -d repository-x86_64-musl
+          git push https://Makrennel:${{ secrets.PEM_PAT }}@github.com/Makrennel/hyprland-void.git -d repository-x86_64-musl
 
       - name: Create new repository branch
         run: |
@@ -161,5 +161,5 @@ jobs:
           cp ~/hostdir/binpkgs/* ./
           git add .
           git commit -m "Upload latest packages to repository"
-          git push https://Makrennel:${{ secrets.GITHUB_TOKEN }}@github.com/Makrennel/hyprland-void.git repository-x86_64-musl
+          git push https://Makrennel:${{ secrets.PEM_PAT }}@github.com/Makrennel/hyprland-void.git repository-x86_64-musl
 
