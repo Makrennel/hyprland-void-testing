@@ -20,6 +20,9 @@ jobs:
         BOOTSTRAP: "${{ matrix.config.host }}"
         TEST: "${{ matrix.config.test }}"
         HOSTREPO: /hostrepo
+        REPO_OWNER: ${{ github.repository_owner }}
+        REPO_NAME: ${{ github.event.repository.name }}
+
 
     strategy:
       fail-fast: false
@@ -42,7 +45,7 @@ jobs:
           xbps-install -Syu xbps
           xbps-install -Syu
           xbps-install -y tar curl
-
+          
       - name: Make void pkgs directory
         run: |
           cd $HOME
@@ -56,8 +59,8 @@ jobs:
 
       - name: Clone Hyprland-Void repo and prepare
         run: |
-          git clone https://github.com/Makrennel/hyprland-void.git
-          cd hyprland-void
+          git clone https://github.com/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}.git
+          cd ${{ env.REPO_NAME }}
           cat common/shlibs >> ../void-packages/common/shlibs
           cp -r srcpkgs/* ../void-packages/srcpkgs
           cd ..
@@ -136,30 +139,31 @@ jobs:
           /hostrepo/xbps-src -A x86_64-musl -j$(nproc) -s -H ~/hostdir pkg hyprpaper
           )
 
+      # Retrieve the signing key from the separate private repository
       - name: Retrieve private key
         run: |
           curl -H 'Authorization: token ${{ secrets.PEM_PAT }}' \
             -H 'Accept: application/vnd.github.v3.raw' \
-            -O -L https://api.github.com/repos/Makrennel/hyprland-void-private-pem/contents/private.pem
+            -O -L https://api.github.com/repos/${{ env.REPO_OWNER }}/hyprland-void-private-pem/contents/private.pem
 
+      # We need to sign the packages with our private key so that they will be accepted by xbps remotely
+      # See: https://docs.voidlinux.org/xbps/repositories/signing.html
       - name: Sign repository
         run: |
           export XBPS_PASSPHRASE=${{ secrets.PRIVATE_PEM_PASSPHRASE }}
-          xbps-rindex --privkey ./private.pem --sign --signedby "hyprland-void-github-action" ~/hostdir/binpkgs
+          xbps-rindex --privkey ./private.pem --sign --signedby "${{ env.REPO_NAME }}-github-action" ~/hostdir/binpkgs
           xbps-rindex --privkey ./private.pem --sign-pkg ~/hostdir/binpkgs/*.xbps
 
-      - name: Remove old repository branch
+      # We'll blow the size of the repository up very quickly if we do not delete old iterations of the repository
+      - name: Delete old repository and recreate with new packages
         run: |
-          cd hyprland-void
+          cd ${{ env.REPO_NAME }}
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git push https://Makrennel:${{ secrets.ACCESS_GIT }}@github.com/Makrennel/hyprland-void.git -d repository-x86_64-musl
-
-      - name: Create new repository branch
-        run: |
+          git push https://${{ env.REPO_OWNER }}:${{ secrets.ACCESS_GIT }}@github.com/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}.git -d repository-x86_64-musl
           git switch --orphan repository-x86_64-musl
           cp ~/hostdir/binpkgs/* ./
           git add .
           git commit -m "Upload latest packages to repository"
-          git push https://Makrennel:${{ secrets.ACCESS_GIT }}@github.com/Makrennel/hyprland-void.git repository-x86_64-musl
+          git push https://${{ env.REPO_OWNER }}:${{ secrets.ACCESS_GIT }}@github.com/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}.git repository-x86_64-musl
 
