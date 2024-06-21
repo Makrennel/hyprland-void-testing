@@ -13,7 +13,7 @@ hostmakedepends="
 makedepends="
 	wayland-devel
 	wayland-protocols
-	hyprland-protocols-devel
+	hyprland-protocols-nightly
 	pipewire-devel
 	libgbm-devel
 	libdrm-devel
