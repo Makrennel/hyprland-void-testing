@@ -14,7 +14,7 @@ conflicts="hyprlang"
 provides="hyprlang-0.5.0_1"
 
 do_fetch() {
-	git clone --depth=1 https://github.com/hyprwm/hyprlang.git
+	git clone --depth=1 https://github.com/hyprwm/hyprlang.git $wrksrc
 	cd $wrksrc
 	revision+="t$(git show -s --format=%ct)"
 }
