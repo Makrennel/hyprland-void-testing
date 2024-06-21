@@ -13,6 +13,7 @@ hstmkdeps="
 	cmake
 	cpio
 	gcc
+	git
 	glslang
 	hyprwayland-scanner-nightly
 	jq

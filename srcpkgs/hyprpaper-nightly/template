@@ -2,7 +2,7 @@
 pkgname=hyprpaper-nightly
 version=0.7.0
 revision=1
-hostmakedepends="pkgconf cmake wayland-devel"
+hostmakedepends="pkgconf cmake wayland-devel git"
 makedepends="
 	pango-devel
 	cairo-devel
