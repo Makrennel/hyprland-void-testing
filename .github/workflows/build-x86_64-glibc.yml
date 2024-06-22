@@ -100,61 +100,61 @@ jobs:
       - name: Build hyprutils-nightly
         run: |
           cd ~/repos/hyprutils
-          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprutils-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprutils-nightly/template
+          sed -i "/version/ s/$/.$(git show -s --format=%ct)/" ~/void-pkgs/void-packages/srcpkgs/hyprutils-nightly/template
           (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprutils-nightly)
 
       - name: Build hyprlang-nightly
         run: |
           cd ~/repos/hyprlang
-          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprlang-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprlang-nightly/template
+          sed -i "/version/ s/$/.$(git show -s --format=%ct)/" ~/void-pkgs/void-packages/srcpkgs/hyprlang-nightly/template
           (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprlang-nightly)
 
       - name: Build hyprcursor-nightly
         run: |
           cd ~/repos/hyprcursor
-          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprcursor-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprcursor-nightly/template
+          sed -i "/version/ s/$/.$(git show -s --format=%ct)/" ~/void-pkgs/void-packages/srcpkgs/hyprcursor-nightly/template
           (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprcursor-nightly)
 
       - name: Build hyprwayland-scanner-nightly
         run: |
           cd ~/repos/hyprwayland-scanner
-          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprwayland-scanner-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprwayland-scanner-nightly/template
+          sed -i "/version/ s/$/.$(git show -s --format=%ct)/" ~/void-pkgs/void-packages/srcpkgs/hyprwayland-scanner-nightly/template
           (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprwayland-scanner-nightly)
 
       - name: Build hyprland-nightly
         run: |
           cd ~/repos/hyprland
-          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprland-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprland-nightly/template
+          sed -i "/version/ s/$/.$(git show -s --format=%ct)/" ~/void-pkgs/void-packages/srcpkgs/hyprland-nightly/template
           (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprland-nightly)
 
       - name: Build hyprland-protocols-nightly
         run: |
           cd ~/repos/hyprland-protocols
-          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprland-protocols-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprland-protocols-nightly/template
+          sed -i "/version/ s/$/.$(git show -s --format=%ct)/" ~/void-pkgs/void-packages/srcpkgs/hyprland-protocols-nightly/template
           (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprland-protocols-nightly)
 
       - name: Build xdg-desktop-portal-hyprland-nightly
         run: |
           cd ~/repos/xdg-desktop-portal-hyprland
-          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/xdg-desktop-portal-hyprland-nightly/template > ~/void-pkgs/void-packages/srcpkgs/xdg-desktop-portal-hyprland-nightly/template
+          sed -i "/version/ s/$/.$(git show -s --format=%ct)/" ~/void-pkgs/void-packages/srcpkgs/xdg-desktop-portal-hyprland-nightly/template
           (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg xdg-desktop-portal-hyprland-nightly)
 
       - name: Build hypridle-nightly
         run: |
           cd ~/repos/hypridle
-          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hypridle-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hypridle-nightly/template
+          sed -i "/version/ s/$/.$(git show -s --format=%ct)/" ~/void-pkgs/void-packages/srcpkgs/hypridle-nightly/template
           (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hypridle-nightly)
 
       - name: Build hyprlock-nightly
         run: |
           cd ~/repos/hyprlock
-          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprlock-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprlock-nightly/template
+          sed -i "/version/ s/$/.$(git show -s --format=%ct)/" ~/void-pkgs/void-packages/srcpkgs/hyprlock-nightly/template
           (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprlock-nightly)
 
       - name: Build hyprpaper-nightly
         run: |
           cd ~/repos/hyprpaper
-          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprpaper-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprpaper-nightly/template
+          sed -i "/version/ s/$/.$(git show -s --format=%ct)/" ~/void-pkgs/void-packages/srcpkgs/hyprpaper-nightly/template
           (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprpaper-nightly)
 
       # All build steps
