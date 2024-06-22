@@ -24,8 +24,6 @@ conflicts="hyprpaper"
 
 do_fetch() {
 	git clone --depth=1 https://github.com/hyprwm/hyprpaper.git $wrksrc
-	cd $wrksrc
-	version+=".t$(git show -s --format=%ct)"
 }
 
 do_build() {

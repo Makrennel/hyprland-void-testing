@@ -15,8 +15,6 @@ conflicts="hyprlock"
 
 do_fetch() {
 	git clone --depth=1 https://github.com/hyprwm/hyprlock.git $wrksrc
-	cd $wrksrc
-	version+=".t$(git show -s --format=%ct)"
 }
 
 post_install() {

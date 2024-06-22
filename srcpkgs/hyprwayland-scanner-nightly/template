@@ -14,8 +14,6 @@ conflicts="hyprwayland-scanner"
 
 do_fetch() {
 	git clone --depth=1 https://github.com/hyprwm/hyprwayland-scanner.git $wrksrc
-	cd $wrksrc
-	version+=".t$(git show -s --format=%ct)"
 }
 
 post_install() {

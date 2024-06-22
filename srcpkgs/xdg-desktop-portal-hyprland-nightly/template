@@ -39,8 +39,6 @@ conflicts="xdg-desktop-portal-hyprland"
 
 do_fetch() {
 	git clone --depth=1 https://github.com/hyprwm/xdg-desktop-portal-hyprland.git $wrksrc
-	cd $wrksrc
-	version+=".t$(git show -s --format=%ct)"
 }
 
 post_install() {

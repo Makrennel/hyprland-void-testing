@@ -63,9 +63,7 @@ if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
 fi
 
 do_fetch() {
-	git clone --recursive --depth=1 https://github.com/hyprwm/Hyprland.git $wrksrc
-	cd $wrksrc
-	version+=".t$(git show -s --format=%ct)"
+	git clone --depth=1 --recurse-submodules --shallow-submodules https://github.com/hyprwm/Hyprland.git $wrksrc
 }
 
 post_install() {
