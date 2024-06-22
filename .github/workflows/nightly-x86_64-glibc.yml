@@ -102,7 +102,7 @@ jobs:
       - name: Get old package times
         run: |
           cd ~/oldpkgs
-          export hyprcursor_time=$(ls hyprcursor-nighty* | cut -d. -f4 | cut -d_ -f1)
+          export hyprcursor_time=$(ls hyprcursor-nightly* | cut -d. -f4 | cut -d_ -f1)
           export hypridle_time=$(ls hypridle-nightly* | cut -d. -f4 | cut -d_ -f1)
           export hyprland_time=$(ls -I *-devel | grep hyprland-nightly | cut -d. -f4 | cut -d_ -f1)
           export hyprlandprotocols_time=$(ls hyprland-protocols-nightly* | cut -d. -f3 | cut -d_ -f1)

@@ -49,7 +49,7 @@ jobs:
 
       - name: Make void pkgs directory
         run: |
-          cd $HOME
+          cd ~
           mkdir void-pkgs
           cd void-pkgs
 
@@ -108,7 +108,6 @@ jobs:
 
       - name: Build hypridle
         run: (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hypridle)
-
       - name: Build hyprlock
         run: (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprlock)
 
@@ -116,9 +115,95 @@ jobs:
         run: (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprpaper)
 
 
+      # Nightly
+      - name: Clone all Hyprwm repos for nightly timestamps
+        run: |
+          mkdir ~/repos
+          cd ~/repos
+          git clone --filter=tree:0 https://github.com/hyprwm/hyprcursor.git
+          git clone --filter=tree:0 https://github.com/hyprwm/hypridle.git
+          git clone --filter=tree:0 https://github.com/hyprwm/hyprland.git
+          git clone --filter=tree:0 https://github.com/hyprwm/hyprland-protocols.git
+          git clone --filter=tree:0 https://github.com/hyprwm/hyprlang.git
+          git clone --filter=tree:0 https://github.com/hyprwm/hyprlock.git
+          git clone --filter=tree:0 https://github.com/hyprwm/hyprpaper.git
+          git clone --filter=tree:0 https://github.com/hyprwm/hyprutils.git
+          git clone --filter=tree:0 https://github.com/hyprwm/xdg-desktop-portal-hyprland.git
+
+      - name: Build hyprutils-nightly
+        run: |
+          cd hyprutils
+          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprutils-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprutils-nightly/template
+          (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprutils)
+          cd ..
+
+      - name: Build hyprlang-nightly
+        run: |
+          cd hyprlang
+          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprlang-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprlang-nightly/template
+          (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprlang)
+          cd ..
+
+      - name: Build hyprcursor-nightly
+        run: |
+          cd hyprcursor
+          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprcursor-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprcursor-nightly/template
+          (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprcursor)
+          cd ..
+
+      - name: Build hyprwayland-scanner-nightly
+        run: |
+          cd hyprwayland-scanner
+          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprwayland-scanner-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprwayland-scanner-nightly/template
+          (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprwayland-scanner)
+          cd ..
+
+      - name: Build hyprland-nightly
+        run: |
+          cd hyprland
+          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprland-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprland-nightly/template
+          (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprland)
+          cd ..
+
+      - name: Build hyprland-protocols-nightly
+        run: |
+          cd hyprland-protocols
+          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprland-protocols-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprland-protocols-nightly/template
+          (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprland-protocols)
+          cd ..
+
+      - name: Build xdg-desktop-portal-hyprland-nightly
+        run: |
+          cd xdg-desktop-portal-hyprland
+          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/xdg-desktop-portal-hyprland-nightly/template > ~/void-pkgs/void-packages/srcpkgs/xdg-desktop-portal-hyprland-nightly/template
+          (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg xdg-desktop-portal-hyprland)
+          cd ..
+
+      - name: Build hypridle-nightly
+        run: |
+          cd hypridle
+          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hypridle-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hypridle-nightly/template
+          (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hypridle)
+          cd ..
+
+      - name: Build hyprlock-nightly
+        run: |
+          cd hyprlock
+          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprlock-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprlock-nightly/template
+          (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprlock)
+          cd ..
+
+      - name: Build hyprpaper-nightly
+        run: |
+          cd hyprpaper
+          sed '/version/ s/$/.$(git show -s --format=%ct)/' ~/void-pkgs/void-packages/srcpkgs/hyprpaper-nightly/template > ~/void-pkgs/void-packages/srcpkgs/hyprpaper-nightly/template
+          (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprpaper)
+          cd ..
+
       # Retrieve the signing key from the separate private repository
       - name: Retrieve private key
         run: |
+          cd ~
           curl -H 'Authorization: token ${{ secrets.PEM_PAT }}' \
             -H 'Accept: application/vnd.github.v3.raw' \
             -O -L https://api.github.com/repos/${{ env.REPO_OWNER }}/hyprland-void-private-pem/contents/private.pem
@@ -128,8 +213,8 @@ jobs:
       - name: Sign repository
         run: |
           export XBPS_PASSPHRASE=${{ secrets.PRIVATE_PEM_PASSPHRASE }}
-          xbps-rindex --privkey ./private.pem --sign --signedby "${{ env.REPO_NAME }}-github-action" ~/hostdir/binpkgs
-          xbps-rindex --privkey ./private.pem --sign-pkg ~/hostdir/binpkgs/*.xbps
+          xbps-rindex --privkey ~/private.pem --sign --signedby "${{ env.REPO_NAME }}-github-action" ~/hostdir/binpkgs
+          xbps-rindex --privkey ~/private.pem --sign-pkg ~/hostdir/binpkgs/*.xbps
 
       - name: Compress Packages
         run: |
