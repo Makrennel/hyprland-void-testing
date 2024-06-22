@@ -50,15 +50,18 @@ jobs:
       - name: Make void pkgs directory
         run: |
           mkdir ~/void-pkgs
-          cd ~/void-pkgs
 
       - name: Clone Void-Packages and prepare
         run: |
+          pwd
+          cd ~/void-pkgs
           git clone --depth 1 https://github.com/void-linux/void-packages.git
           ls -la
 
       - name: Clone Hyprland-Void repo and prepare
         run: |
+          pwd
+          cd ~/void-pkgs
           git clone https://github.com/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}.git
           cd ${{ env.REPO_NAME }}
           cat common/shlibs >> ../void-packages/common/shlibs
@@ -67,7 +70,8 @@ jobs:
 
       - name: Create hostrepo and prepare masterdir
         run: |
-          cd void-packages
+          pwd
+          cd ~/void-pkgs/void-packages
           ln -s "$(pwd)" /hostrepo &&
           common/travis/set_mirror.sh &&
           common/travis/prepare.sh &&
@@ -76,6 +80,7 @@ jobs:
       # Nightly
       - name: Clone all Hyprwm repos for nightly timestamps
         run: |
+          pwd
           mkdir ~/repos
           cd ~/repos
           git clone --filter=tree:0 https://github.com/hyprwm/hyprcursor.git
