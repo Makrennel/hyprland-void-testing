@@ -222,25 +222,25 @@ jobs:
       - name: Get current date
         run: echo "CURRENT_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.run_number }}
-          release_name: Hyprland Void ${{ env.CURRENT_DATE }}
+        #- name: Create Release
+        #id: create_release
+        #uses: actions/create-release@v1
+        #env:
+        #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #with:
+        #  tag_name: ${{ github.run_number }}
+        #  release_name: Hyprland Void ${{ env.CURRENT_DATE }}
 
-      - name: Upload Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /home/runner/hyprland.tar.gz
-          asset_name: hyprland-${{ env.CURRENT_DATE }}.tar.gz
-          asset_content_type: application/gzip
+      #- name: Upload Release Asset
+      #id: upload-release-asset
+      #uses: actions/upload-release-asset@v1
+      #env:
+      #  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #with:
+      #  upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #  asset_path: /home/runner/hyprland.tar.gz
+      #  asset_name: hyprland-${{ env.CURRENT_DATE }}.tar.gz
+      #  asset_content_type: application/gzip
 
       - name: Checkout repository
         uses: actions/checkout@v4

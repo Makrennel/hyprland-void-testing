@@ -71,15 +71,19 @@ jobs:
 
       - name: Get old packages and index
         run: |
-          mkdir ~/oldpkgs
-          mkdir -p ~/hostdir/binpkgs
+          mkdir -v ~/oldpkgs
+          mkdir -v -p ~/hostdir/binpkgs
           git clone https://github.com/Makrennel/hyprland-void.git
           cd hyprland-void
           git checkout repository-x86_64-glibc
-          cp *.xbps ~/oldpkgs
-          cp *.xbps ~/hostdir/binpkgs
+          cp -v *.xbps ~/oldpkgs
+          cp -v *.xbps ~/hostdir/binpkgs
           cd ~/hostdir/binpkgs
           xbps-rindex -a *
+          echo "~/oldpkgs"
+          ls ~/oldpkgs
+          echo "~/hostdir/binpkgs"
+          ls ~/hostdir/binpkgs
 
       # Try to avoid rebuilding packages which are already on the latest commit so we don't waste actions minutes
       - name: Build hyprutils
@@ -99,94 +103,117 @@ jobs:
       - name: Build hyprlang
         run: |
           export olddate=$(ls ~/oldpkgs | grep hyprlang-nightly | cut -d. -f4)
+          echo "Previous Datestamp: $olddate"
           git clone --filter=tree:0 https://github.com/hyprwm/hyprlang.git
           cd hyprlang
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
           export commithash=$(git show -s --format=%h)
+          echo "Current Datestamp: $commitdate"
+          echo "Current Commit Shorthash: $commithash"
           sed -i '/^version/ s/$/.${commitdate}.${commithash}/' ~/void-pkgs/void-packages/srcpkgs/hyprlang-nightly/template
           [ "$commitdate" -gt "$olddate" ] && (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprlang-nightly) && rm ~/oldpkgs/hyprlang-nightly && cp ~/hostdir/binpkgs/hyprlang-nightly ~/oldpkgs || echo "hyprlang-nightly is up to date"
 
       - name: Build hyprcursor
         run: |
           export olddate=$(ls ~/oldpkgs | grep hyprcursor-nightly | cut -d. -f4)
+          echo "Previous Datestamp: $olddate"
           git clone --filter=tree:0 https://github.com/hyprwm/hyprcursor.git
           cd hyprcursor
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
           export commithash=$(git show -s --format=%h)
+          echo "Current Datestamp: $commitdate"
+          echo "Current Commit Shorthash: $commithash"
           sed -i '/^version/ s/$/.${commitdate}.${commithash}/' ~/void-pkgs/void-packages/srcpkgs/hyprcursor-nightly/template
           [ "$commitdate" -gt "$olddate" ] && (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprcursor-nightly) && rm ~/oldpkgs/hyprcursor-nightly && cp ~/hostdir/binpkgs/hyprcursor-nightly ~/oldpkgs || echo "hyprcursor-nightly is up to date"
 
       - name: Build hyprwayland-scanner
         run: |
           export olddate=$(ls ~/oldpkgs | grep hyprwayland-scanner-nightly | cut -d. -f4)
+          echo "Previous Datestamp: $olddate"
           git clone --filter=tree:0 https://github.com/hyprwm/hyprwayland-scanner.git
           cd hyprwayland-scanner
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
           export commithash=$(git show -s --format=%h)
+          echo "Current Datestamp: $commitdate"
+          echo "Current Commit Shorthash: $commithash"
           sed -i '/^version/ s/$/.${commitdate}.${commithash}/' ~/void-pkgs/void-packages/srcpkgs/hyprwayland-scanner-nightly/template
           [ "$commitdate" -gt "$olddate" ] && (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprwayland-scanner-nightly) && rm ~/oldpkgs/hyprwayland-scanner-nightly && cp ~/hostdir/binpkgs/hyprwayland-scanner-nightly ~/oldpkgs || echo "hyprwayland-scanner-nightly is up to date"
 
       - name: Build hyprland
         run: |
           export olddate=$(ls ~/oldpkgs | grep -v devel | grep hyprland-nightly | cut -d. -f4)
+          echo "Previous Datestamp: $olddate"
           git clone --filter=tree:0 https://github.com/hyprwm/hyprland.git
           cd hyprland
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
           export commithash=$(git show -s --format=%h)
+          echo "Current Datestamp: $commitdate"
+          echo "Current Commit Shorthash: $commithash"
           sed -i '/^version/ s/$/.${commitdate}.${commithash}/' ~/void-pkgs/void-packages/srcpkgs/hyprland-nightly/template
           [ "$commitdate" -gt "$olddate" ] && (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprland-nightly) && rm ~/oldpkgs/hyprland-nightly && cp ~/hostdir/binpkgs/hyprland-nightly ~/oldpkgs || echo "hyprland-nightly is up to date"
 
       - name: Build hyprland-protocols
         run: |
           export olddate=$(ls ~/oldpkgs | grep hyprland-protocols-nightly | cut -d. -f3)
+          echo "Previous Datestamp: $olddate"
           git clone --filter=tree:0 https://github.com/hyprwm/hyprland-protocols.git
           cd hyprland-protocols
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
           export commithash=$(git show -s --format=%h)
+          echo "Current Datestamp: $commitdate"
+          echo "Current Commit Shorthash: $commithash"
           sed -i '/^version/ s/$/.${commitdate}.${commithash}/' ~/void-pkgs/void-packages/srcpkgs/hyprland-protocols-nightly/template
           [ "$commitdate" -gt "$olddate" ] && (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprland-protocols-nightly) && rm ~/oldpkgs/hyprland-protocols-nightly && cp ~/hostdir/binpkgs/hyprland-protocols-nightly ~/oldpkgs || echo "hyprland-protocols-nightly is up to date"
 
       - name: Build xdg-desktop-portal-hyprland
         run: |
           export olddate=$(ls ~/oldpkgs | grep xdg-desktop-portal-hyprland-nightly | cut -d. -f4)
+          echo "Previous Datestamp: $olddate"
           git clone --filter=tree:0 https://github.com/hyprwm/xdg-desktop-portal-hyprland.git
           cd xdg-desktop-portal-hyprland
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
           export commithash=$(git show -s --format=%h)
+          echo "Current Datestamp: $commitdate"
+          echo "Current Commit Shorthash: $commithash"
           sed -i '/^version/ s/$/.${commitdate}.${commithash}/' ~/void-pkgs/void-packages/srcpkgs/xdg-desktop-portal-hyprland-nightly/template
           [ "$commitdate" -gt "$olddate" ] && (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg xdg-desktop-portal-hyprland-nightly) && rm ~/oldpkgs/xdg-desktop-portal-hyprland-nightly && cp ~/hostdir/binpkgs/xdg-desktop-portal-hyprland-nightly ~/oldpkgs || echo "xdg-desktop-portal-hyprland-nightly is up to date"
 
       - name: Build hypridle
         run: |
           export olddate=$(ls ~/oldpkgs | grep hypridle-nightly | cut -d. -f4)
+          echo "Previous Datestamp: $olddate"
           git clone --filter=tree:0 https://github.com/hyprwm/hypridle.git
           cd hypridle
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
           export commithash=$(git show -s --format=%h)
+          echo "Current Datestamp: $commitdate"
+          echo "Current Commit Shorthash: $commithash"
           sed -i '/^version/ s/$/.${commitdate}.${commithash}/' ~/void-pkgs/void-packages/srcpkgs/hypridle-nightly/template
           [ "$commitdate" -gt "$olddate" ] && (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hypridle-nightly) && rm ~/oldpkgs/hypridle-nightly && cp ~/hostdir/binpkgs/hypridle-nightly ~/oldpkgs || echo "hypridle-nightly is up to date"
 
       - name: Build hyprlock
         run: |
           export olddate=$(ls ~/oldpkgs | grep hyprlock-nightly | cut -d. -f4)
+          echo "Previous Datestamp: $olddate"
           git clone --filter=tree:0 https://github.com/hyprwm/hyprlock.git
           cd hyprlock
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
           export commithash=$(git show -s --format=%h)
+          echo "Current Datestamp: $commitdate"
+          echo "Current Commit Shorthash: $commithash"
           sed -i '/^version/ s/$/.${commitdate}.${commithash}/' ~/void-pkgs/void-packages/srcpkgs/hyprlock-nightly/template
-          [ "$commitdate" -gt "$olddate" ] && \
-            (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprlock-nightly) && \
-            ~/oldpkgs/hyprlock-nightly && \
-            cp ~/hostdir/binpkgs/hyprlock-nightly ~/oldpkgs || \
-            echo "hyprlock-nightly is up to date"
+          [ "$commitdate" -gt "$olddate" ] && (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprlock-nightly) && ~/oldpkgs/hyprlock-nightly && cp ~/hostdir/binpkgs/hyprlock-nightly ~/oldpkgs || echo "hyprlock-nightly is up to date"
 
       - name: Build hyprpaper
         run: |
           export olddate=$(ls ~/oldpkgs | grep hyprpaper-nightly | cut -d. -f4)
+          echo "Previous Datestamp: $olddate"
           git clone --filter=tree:0 https://github.com/hyprwm/hyprpaper.git
           cd hyprpaper
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
           export commithash=$(git show -s --format=%h)
+          echo "Current Datestamp: $commitdate"
+          echo "Current Commit Shorthash: $commithash"
           sed -i '/^version/ s/$/.${commitdate}.${commithash}/' ~/void-pkgs/void-packages/srcpkgs/hyprpaper-nightly/template
           [ "$commitdate" -gt "$olddate" ] && (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprpaper-nightly) && rm ~/oldpkgs/hyprpaper-nightly && cp ~/hostdir/binpkgs/hyprpaper-nightly ~/oldpkgs || echo "hyprpaper-nightly is up to date"
 
