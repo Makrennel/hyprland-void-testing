@@ -49,6 +49,7 @@ jobs:
           
       - name: Clone Void-Packages and prepare
         run: |
+          mkdir ~/void-pkgs
           cd ~/void-pkgs
           git clone --depth 1 https://github.com/void-linux/void-packages.git
 
