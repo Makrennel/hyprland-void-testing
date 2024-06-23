@@ -55,7 +55,6 @@ jobs:
         run: |
           cd ~/void-pkgs
           git clone --depth 1 https://github.com/void-linux/void-packages.git
-          ls -la
 
       - name: Clone Hyprland-Void repo and prepare
         run: |
@@ -64,7 +63,6 @@ jobs:
           cd ${{ env.REPO_NAME }}
           cat common/shlibs >> ../void-packages/common/shlibs
           cp -r srcpkgs/* ../void-packages/srcpkgs
-          cd ..
 
       - name: Create hostrepo and prepare masterdir
         run: |
