@@ -1,4 +1,4 @@
-name: "Nightly Hyprland x86_64 Glibc"
+name: "Nightly Hyprland x86_64 Musl"
 
 on:
   schedule:
