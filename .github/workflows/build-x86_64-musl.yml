@@ -208,7 +208,7 @@ jobs:
       # We'll blow the size of the repository up very quickly if we do not delete old iterations of the repository
       - name: Delete old repository and recreate with new packages
         run: |
-          cd ${{ env.REPO_NAME }}
+          cd ~/void-pkgs/${{ env.REPO_NAME }}
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git push https://${{ env.REPO_OWNER }}:${{ secrets.ACCESS_GIT }}@github.com/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}.git -d repository-x86_64-musl
