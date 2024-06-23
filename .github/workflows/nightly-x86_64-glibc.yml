@@ -1,6 +1,9 @@
 name: "Nightly Hyprland x86_64 Glibc"
 
 on:
+  schedule:
+    - cron: "0 0 * * *"
+
   workflow_dispatch:
 
 env:
@@ -81,7 +84,7 @@ jobs:
       # Try to avoid rebuilding packages which are already on the latest commit so we don't waste actions minutes
       - name: Build hyprutils
         run: |
-          export olddate=$(ls ~/oldpkgs/hyprutils-nightly* | cut -d. -f4)
+          export olddate=$(ls ~/oldpkgs | grep hyprutils-nightly | cut -d. -f4)
           git clone --filter=tree:0 https://github.com/hyprwm/hyprutils.git
           cd hyprutils
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
@@ -96,7 +99,7 @@ jobs:
 
       - name: Build hyprlang
         run: |
-          export olddate=$(ls ~/oldpkgs/hyprlang-nightly* | cut -d. -f4)
+          export olddate=$(ls ~/oldpkgs | grep hyprlang-nightly* | cut -d. -f4)
           git clone --filter=tree:0 https://github.com/hyprwm/hyprlang.git
           cd hyprlang
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
@@ -110,7 +113,7 @@ jobs:
 
       - name: Build hyprcursor
         run: |
-          export olddate=$(ls ~/oldpkgs/hyprcursor-nightly* | cut -d. -f4)
+          export olddate=$(ls ~/oldpkgs | grep hyprcursor-nightly* | cut -d. -f4)
           git clone --filter=tree:0 https://github.com/hyprwm/hyprcursor.git
           cd hyprcursor
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
@@ -124,7 +127,7 @@ jobs:
 
       - name: Build hyprwayland-scanner
         run: |
-          export olddate=$(ls ~/oldpkgs/hyprwayland-scanner-nightly* | cut -d. -f4)
+          export olddate=$(ls ~/oldpkgs | grep hyprwayland-scanner-nightly* | cut -d. -f4)
           git clone --filter=tree:0 https://github.com/hyprwm/hyprwayland-scanner.git
           cd hyprwayland-scanner
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
@@ -138,7 +141,7 @@ jobs:
 
       - name: Build hyprland
         run: |
-          export olddate=$(ls ~/oldpkgs/-I *-devel | grep hyprland-nightly | cut -d. -f4)
+          export olddate=$(ls ~/oldpkgs | grep -v -devel | grep hyprland-nightly | cut -d. -f4)
           git clone --filter=tree:0 https://github.com/hyprwm/hyprland.git
           cd hyprland
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
@@ -152,7 +155,7 @@ jobs:
 
       - name: Build hyprland-protocols
         run: |
-          export olddate=$(ls ~/oldpkgs/hyprland-protocols-nightly* | cut -d. -f3)
+          export olddate=$(ls ~/oldpkgs | grep hyprland-protocols-nightly* | cut -d. -f3)
           git clone --filter=tree:0 https://github.com/hyprwm/hyprland-protocols.git
           cd hyprland-protocols
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
@@ -166,7 +169,7 @@ jobs:
 
       - name: Build xdg-desktop-portal-hyprland
         run: |
-          export olddate=$(ls ~/oldpkgs/xdg-desktop-portal-hyprland-nightly* | cut -d. -f4)
+          export olddate=$(ls ~/oldpkgs | grep xdg-desktop-portal-hyprland-nightly* | cut -d. -f4)
           git clone --filter=tree:0 https://github.com/hyprwm/xdg-desktop-portal-hyprland.git
           cd xdg-desktop-portal-hyprland
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
@@ -180,7 +183,7 @@ jobs:
 
       - name: Build hypridle
         run: |
-          export olddate=$(ls ~/oldpkgs/hypridle-nightly* | cut -d. -f4)
+          export olddate=$(ls ~/oldpkgs | grep hypridle-nightly* | cut -d. -f4)
           git clone --filter=tree:0 https://github.com/hyprwm/hypridle.git
           cd hypridle
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
@@ -194,7 +197,7 @@ jobs:
 
       - name: Build hyprlock
         run: |
-          export olddate=$(ls ~/oldpkgs/hyprlock-nightly* | cut -d. -f4)
+          export olddate=$(ls ~/oldpkgs | grep hyprlock-nightly* | cut -d. -f4)
           git clone --filter=tree:0 https://github.com/hyprwm/hyprlock.git
           cd hyprlock
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
@@ -208,7 +211,7 @@ jobs:
 
       - name: Build hyprpaper
         run: |
-          export olddate=$(ls ~/oldpkgs/hyprpaper-nightly* | cut -d. -f4)
+          export olddate=$(ls ~/oldpkgs | grep hyprpaper-nightly* | cut -d. -f4)
           git clone --filter=tree:0 https://github.com/hyprwm/hyprpaper.git
           cd hyprpaper
           export commitdate=$(date +'%Y%m%d' -d @$(git show -s --format=%ct))
