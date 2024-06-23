@@ -4,7 +4,20 @@ version=0.3.0
 revision=1
 build_style=cmake
 hostmakedepends="cmake git pkgconf"
-makedepends="cairo-devel hyprlang-nightly libdrm-devel libxkbcommon-devel MesaLib-devel pango-devel pam-devel wayland-devel wayland-protocols"
+makedepends="
+	cairo-devel
+	file-devel
+	hyprlang-nightly
+	libdrm-devel
+	libjpeg-turbo-devel
+	libwebp-devel
+	libxkbcommon-devel
+	MesaLib-devel
+	pango-devel
+	pam-devel
+	wayland-devel
+	wayland-protocols
+"
 short_desc="Hyprland's GPU-accelerated screen locking utility"
 maintainer="Makrennel <makrommel@protonmail.ch>"
 license="BSD-3-Clause"
