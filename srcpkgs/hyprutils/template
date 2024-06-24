@@ -10,6 +10,8 @@ homepage="https://github.com/hyprwm/hyprutils"
 distfiles="https://github.com/hyprwm/hyprutils/archive/refs/tags/v${version}.tar.gz"
 checksum=a11598fbba1dcb8e1f939935ed55339b481816b1fddc89dbbfe4dafb4d753562
 
+provides="vhyprutils-0.1.2_1"
+
 post_install() {
 	vlicense LICENSE
 }
