@@ -181,6 +181,12 @@ jobs:
           echo "Current Commit Shorthash: $commithash"
           sed -i "/^version/ s/$/.${commitdate}.${commithash}/" ~/void-pkgs/void-packages/srcpkgs/hyprland-nightly/template
           cat ~/void-pkgs/void-packages/srcpkgs/hyprland-nightly/template | grep "version="
+          echo "testing"
+          echo "olddate= $olddate"
+          echo "oldhash= $oldhash"
+          echo "commitdate= $commitdate"
+          echo "commithash= $commithash"
+          echo "end testing"
           [ $commitdate -gt $olddate -o $commitdate -eq $olddate -a ! "$commithash" = "$oldhash" ] &&
             (/hostrepo/xbps-src -j$(nproc) -s -H ~/hostdir pkg hyprland-nightly) &&
             rm ~/oldpkgs/hyprland-nightly* &&
