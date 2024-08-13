@@ -1,0 +1,20 @@
+# Template file for 'aquamarine-nightly'
+pkgname=aquamarine-nightly
+version=0.3.1
+revision=1
+build_style=cmake
+hostmakedepends="cmake pkgconf"
+makedepends="hyprutils-nightly MesaLib-devel hyprwayland-scanner-nightly libseat-devel libinput-devel wayland-devel wayland-protocols pixman-devel libdisplay-info-devel hwids"
+short_desc="Aquamarine is a very light linux rendering backend library"
+maintainer="Makrennel <makrommel@protonmail.ch>"
+license="LGPL-3.0-only"
+homepage="https://hyprland.org/hyprlang/index.html"
+changelog="https://github.com/hyprwm/aquamarine/releases"
+
+conflicts="aquamarine"
+provides="aquamarine-0.3.0_1"
+
+do_fetch() {
+	git clone --depth=1 https://github.com/hyprwm/aquamarine.git $wrksrc
+}
+
