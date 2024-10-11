@@ -33,7 +33,7 @@ jobs:
               arch: aarch64,
               host: aarch64,
               libc: musl,
-              platform: linux/amd64,
+              platform: linux/aarch64,
               test: 0,
             }
 
