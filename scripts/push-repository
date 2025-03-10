@@ -17,10 +17,9 @@ COMMAND="
   cp /work/packages/* ./
   git add .
   git commit -m \"Upload latest packages to repository\"
-  git push https://$REPO_OWNER:$ACCESS_GIT@github.com/$REPO_OWNER/$REPO_NAME.git repository-$RESULT_NAME
+  git push -f https://$REPO_OWNER:$ACCESS_GIT@github.com/$REPO_OWNER/$REPO_NAME.git repository-$RESULT_NAME
 "
 
 echo "Running command: $COMMAND"
-echo "$ACCESS_GIT_TOKEN" >> /work/ACCESS_GIT_TOKEN # Hide secret from being printed to the log
 sh -c "$COMMAND"
 
